@@ -1,5 +1,7 @@
 # Topological Validation Pipeline
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18958345.svg)](https://doi.org/10.5281/zenodo.18958345)
+
 **Beyond RMSE: Structural validation of scalar field reconstructions via persistent homology.**
 
 A lightweight post-hoc validation tool that uses persistent homology to detect structural hallucinations in reconstructed scalar fields. Standard pointwise metrics (RMSE) cannot distinguish between structurally correct and structurally corrupted reconstructions — this pipeline fills that gap.
