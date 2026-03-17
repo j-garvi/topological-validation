@@ -58,21 +58,21 @@ def main():
     # Validate
     result = validate(field_recon, field_ref, threshold_ratio=args.threshold)
 
-    print(f"\n{'─' * 45}")
+    print(f"\n{'-' * 45}")
     print(f"  RMSE         = {result['rmse']:.6f}")
     print(f"  H₀ (ref)     = {result['H0_ref']}")
     print(f"  H₀ (recon)   = {result['H0_recon']}")
     print(f"  W₂           = {result['W2']:.6f}")
-    print(f"{'─' * 45}")
+    print(f"{'-' * 45}")
 
     if result['H0_recon'] > result['H0_ref']:
         excess = result['H0_recon'] - result['H0_ref']
-        print(f"  ⚠ WARNING: {excess} hallucinated features detected!")
+        print(f"  WARNING: {excess} hallucinated features detected!")
     elif result['H0_recon'] < result['H0_ref']:
         deficit = result['H0_ref'] - result['H0_recon']
-        print(f"  ⚠ NOTE: {deficit} features under-resolved (conservative error).")
+        print(f"  NOTE: {deficit} features under-resolved (conservative error).")
     else:
-        print(f"  ✅ Topological agreement: H₀ counts match.")
+        print(f"  OK: Topological agreement: H0 counts match.")
 
 
 if __name__ == '__main__':

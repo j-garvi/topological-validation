@@ -17,9 +17,9 @@ Given a reconstructed scalar field and a reference, the pipeline computes:
 
 | Metric | What it measures | Standard metric? |
 |--------|-----------------|-----------------|
-| **RMSE** | Pointwise accuracy | ✅ Yes |
-| **H₀ count** | Number of significant topological features (vortices, shocks, etc.) | ❌ Novel |
-| **W₂ distance** | Wasserstein-2 between persistence diagrams (structural similarity) | ❌ Novel |
+| **RMSE** | Pointwise accuracy | Yes |
+| **H0 count** | Number of significant topological features (vortices, shocks, etc.) | Novel |
+| **W2 distance** | Wasserstein-2 between persistence diagrams (structural similarity) | Novel |
 
 ## Usage
 

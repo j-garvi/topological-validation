@@ -43,7 +43,7 @@ def main():
     y = np.linspace(0, 1, N)
     xx, yy = np.meshgrid(x, y)
 
-    # ─── Ground Truth: 5 well-separated vortices ─────────────────────
+    # --- Ground Truth: 5 well-separated vortices
     vorticity_true = (
         make_vortex(xx, yy, 0.5, 0.5, strength=1.0, sigma=0.08) +
         make_vortex(xx, yy, 1.3, 0.5, strength=0.9, sigma=0.08) +
@@ -52,11 +52,11 @@ def main():
         make_vortex(xx, yy, 3.5, 0.5, strength=0.75, sigma=0.08)
     )
 
-    # ─── Good reconstruction (faithful, tiny noise) ──────────────────
+    # --- Good reconstruction (faithful, tiny noise) ──────────────────
     np.random.seed(42)
     vorticity_good = vorticity_true + 0.005 * np.random.randn(N, N)
 
-    # ─── Bad reconstruction (competitive RMSE but hallucinated vortices)
+    # --- Bad reconstruction (competitive RMSE but hallucinated vortices)
     np.random.seed(123)
     vorticity_bad = vorticity_true.copy()
     # Add 7 spurious hallucinated vortices (small amplitude ≈ low RMSE)
@@ -67,42 +67,42 @@ def main():
         vorticity_bad += make_vortex(xx, yy, cx, cy, strength=s, sigma=0.05)
     vorticity_bad += 0.003 * np.random.randn(N, N)
 
-    # ─── Validate ──────────────────────────────────────────────────────
+    # --- Validate
     # Negate the field: sublevel-set filtration finds minima; negating
-    # turns vortex peaks into deep minima → they become persistent H₀
+    # turns vortex peaks into deep minima -- they become persistent H0
     # features born early in the filtration.
     ref = -vorticity_true
     good = -vorticity_good
     bad = -vorticity_bad
 
-    print("\n── Good Reconstruction (noise only, no hallucinations) ──")
+    print("\n-- Good Reconstruction (noise only, no hallucinations) --")
     res_good = validate(good, ref, normalize=True)
     print(f"   RMSE      = {res_good['rmse']:.4f}")
     print(f"   H₀ (ref)  = {res_good['H0_ref']}")
     print(f"   H₀ (recon)= {res_good['H0_recon']}")
     print(f"   W₂        = {res_good['W2']:.4f}")
 
-    print("\n── Bad Reconstruction (7 hallucinated vortices) ──")
+    print("\n-- Bad Reconstruction (7 hallucinated vortices) --")
     res_bad = validate(bad, ref, normalize=True)
     print(f"   RMSE      = {res_bad['rmse']:.4f}")
     print(f"   H₀ (ref)  = {res_bad['H0_ref']}")
     print(f"   H₀ (recon)= {res_bad['H0_recon']}")
     print(f"   W₂        = {res_bad['W2']:.4f}")
 
-    # ─── Key finding ───────────────────────────────────────────────────
-    print("\n── Summary ──")
+    # --- Key finding ───────────────────────────────────────────────────
+    print("\n-- Summary --")
     rmse_ratio = res_bad['rmse'] / res_good['rmse'] if res_good['rmse'] > 0 else float('inf')
     w2_ratio = res_bad['W2'] / res_good['W2'] if res_good['W2'] > 0 else float('inf')
     print(f"   RMSE ratio (bad/good)       = {rmse_ratio:.2f}x")
     print(f"   H₀ overcounting (bad)       = {res_bad['H0_recon']} vs {res_bad['H0_ref']} true")
     print(f"   W₂ ratio (bad/good)         = {w2_ratio:.2f}x")
     if res_bad['H0_recon'] > res_bad['H0_ref']:
-        print("   → The bad reconstruction hallucinates extra structures that")
+        print("   >> The bad reconstruction hallucinates extra structures that")
         print("     RMSE alone cannot detect. Topological validation catches it.")
     else:
-        print("   → Pipeline correctly processed both fields.")
+        print("   >> Pipeline correctly processed both fields.")
 
-    # ─── Plot ──────────────────────────────────────────────────────────
+    # --- Plot────
     fig, axes = plt.subplots(2, 3, figsize=(16, 9))
 
     # Row 1: Vorticity fields
@@ -140,7 +140,7 @@ def main():
     out_path = 'demo_validation_output.png'
     fig.savefig(out_path, dpi=200, bbox_inches='tight')
     plt.close()
-    print(f"\n✅ Plot saved to: {out_path}")
+    print(f"\n[OK] Plot saved to: {out_path}")
 
 
 if __name__ == '__main__':

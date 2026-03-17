@@ -27,9 +27,9 @@ import gudhi
 from gudhi.wasserstein import wasserstein_distance as _gudhi_wasserstein
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
 #  Core Functions
-# ═══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
 
 def normalize_field(field: np.ndarray) -> np.ndarray:
     """
@@ -233,9 +233,9 @@ def validate(
     }
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
 #  Visualization
-# ═══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
 
 def plot_persistence_diagram(
     persistence_result: dict,
@@ -318,7 +318,7 @@ def plot_lifetime_histogram(
     Plot persistence lifetime histogram for multiple fields.
 
     Args:
-        persistence_results: Dict mapping label → compute_persistence() output.
+        persistence_results: Dict mapping label -> compute_persistence() output.
         dim: Homology dimension.
         labels: Override labels (keys of persistence_results used if None).
         colors: Override colors.
