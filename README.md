@@ -85,9 +85,9 @@ The computation scales as **O(N)** for H₀ features (Union-Find with path compr
   title={Beyond {RMSE}: Structural validation of physics-informed neural
          network reconstructions via persistent homology},
   author={Garv{\'\i}-Gualda, Jes{\'u}s},
-  journal={Journal of Scientific Computing},
+  journal={Applied Mathematics and Computation},
   year={2026},
-  note={Under review}
+  note={Submitted}
 }
 ```
 
