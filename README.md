@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18958345.svg)](https://doi.org/10.5281/zenodo.18958345)
 
-**Beyond RMSE: Structural validation of scalar field reconstructions via persistent homology.**
+**Topological validation of scalar field reconstructions via persistent homology.**
 
 A lightweight post-hoc validation tool that uses persistent homology to detect structural hallucinations in reconstructed scalar fields. Standard pointwise metrics (RMSE) cannot distinguish between structurally correct and structurally corrupted reconstructions — this pipeline fills that gap.
 
@@ -12,6 +12,15 @@ A lightweight post-hoc validation tool that uses persistent homology to detect s
 pip install gudhi numpy scipy matplotlib
 python demo_synthetic.py
 ```
+
+## Reproducibility
+
+`demo_synthetic.py` is a self-contained, deterministic reproduction: it builds a
+reference vortex field, a noise-only reconstruction, and a reconstruction with
+hallucinated structures, then prints RMSE, H0 counts, and W2 for each. It
+requires no external data and runs in a few seconds on a single CPU core. The
+core pipeline (`tda_pipeline.py`) has no solver dependencies and applies to any
+2D scalar field supplied as a NumPy array.
 
 ## What It Does
 
@@ -81,13 +90,13 @@ The computation scales as **O(N)** for H₀ features (Union-Find with path compr
 ## Citation
 
 ```bibtex
-@article{garvi2026beyond,
-  title={Beyond {RMSE}: Structural validation of physics-informed neural
-         network reconstructions via persistent homology},
+@misc{garvi2026topological,
+  title={Topological validation of neural {PDE} solver reconstructions:
+         a persistent-homology layer with a maximum-principle guarantee},
   author={Garv{\'\i}-Gualda, Jes{\'u}s},
-  journal={Applied Mathematics and Computation},
   year={2026},
-  note={Submitted}
+  doi={10.5281/zenodo.18958345},
+  note={Preprint}
 }
 ```
 

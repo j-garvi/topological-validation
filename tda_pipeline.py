@@ -8,8 +8,9 @@ the H₀ persistence diagram (connected components) and Wasserstein-2 distance
 against a reference field.
 
 Reference:
-    Garví-Gualda, J. (2026). "Beyond RMSE: Structural validation of
-    physics-informed neural network reconstructions via persistent homology."
+    Garví-Gualda, J. (2026). "Topological validation of neural PDE solver
+    reconstructions: a persistent-homology layer with a maximum-principle
+    guarantee." Preprint, doi:10.5281/zenodo.18958345.
 
 Dependencies:
     - gudhi >= 3.9
