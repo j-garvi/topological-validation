@@ -1,6 +1,5 @@
 # Topological Validation Pipeline
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18958345.svg)](https://doi.org/10.5281/zenodo.18958345)
 
 **Topological validation of scalar field reconstructions via persistent homology.**
 
@@ -95,7 +94,6 @@ The computation scales as **O(N)** for H₀ features (Union-Find with path compr
          a persistent-homology layer with a maximum-principle guarantee},
   author={Garv{\'\i}-Gualda, Jes{\'u}s},
   year={2026},
-  doi={10.5281/zenodo.18958345},
   note={Preprint}
 }
 ```
