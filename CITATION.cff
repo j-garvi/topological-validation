@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+title: Topological Validation Pipeline
+message: >-
+  If you use this software, please cite both the software itself
+  and the preprint it accompanies.
+type: software
+authors:
+  - family-names: Garví-Gualda
+    given-names: Jesús
+    orcid: "https://orcid.org/0009-0005-9061-1087"
+    affiliation: Universidad de Murcia
+    email: jesus.garvig@um.es
+repository-code: "https://github.com/j-garvi/topological-validation"
+abstract: >-
+  A post-hoc validation tool that uses sublevel-set persistent
+  homology to detect structural hallucinations in reconstructed
+  2D scalar fields. It reports RMSE alongside a reduced H0
+  feature count and the Wasserstein-2 distance between
+  persistence diagrams, which separates reconstructions that
+  pointwise metrics rank as comparable.
+keywords:
+  - persistent homology
+  - topological data analysis
+  - physics-informed neural networks
+  - computational validation
+  - Navier-Stokes equations
+license: MIT
+version: 1.0.0
+date-released: "2026-07-25"
+preferred-citation:
+  type: article
+  title: >-
+    Beyond RMSE: Structural validation of physics-informed neural
+    network reconstructions via persistent homology
+  authors:
+    - family-names: Garví-Gualda
+      given-names: Jesús
+      orcid: "https://orcid.org/0009-0005-9061-1087"
+      affiliation: Universidad de Murcia
+  year: 2026
+  doi: 10.5281/zenodo.18958345
+  notes: Zenodo preprint

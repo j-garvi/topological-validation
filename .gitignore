@@ -1,3 +1,8 @@
 __pycache__/
 *.pyc
-demo_validation_output.png
+.DS_Store
+
+# demo_validation_output.png is deliberately tracked as the reference output
+# of demo_synthetic.py, so it is not ignored here. Regenerating it with a
+# different matplotlib version produces a visually equivalent but not
+# byte-identical file.

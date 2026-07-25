@@ -4,18 +4,22 @@ Topological Validation Pipeline for Scalar Field Reconstructions.
 
 Implements persistent homology-based structural validation using GUDHI.
 Detects structural hallucinations in reconstructed scalar fields by comparing
-the H₀ persistence diagram (connected components) and Wasserstein-2 distance
+the H0 persistence diagram (connected components) and Wasserstein-2 distance
 against a reference field.
 
+H0 counts follow the reduced convention: the essential class is excluded, so a
+field with K well-separated basins reports K-1 features. See the README section
+"Counting convention for H0".
+
 Reference:
-    Garví-Gualda, J. (2026). "Topological validation of neural PDE solver
-    reconstructions: a persistent-homology layer with a maximum-principle
-    guarantee." Preprint, doi:10.5281/zenodo.18958345.
+    Garví-Gualda, J. (2026). "Beyond RMSE: Structural validation of
+    physics-informed neural network reconstructions via persistent homology."
+    Zenodo preprint, doi:10.5281/zenodo.18958345.
 
 Dependencies:
     - gudhi >= 3.9
     - numpy >= 1.24
-    - scipy >= 1.11
+    - POT >= 0.9 (required by gudhi.wasserstein)
 
 Author: Jesús Garví-Gualda
 License: MIT
@@ -116,6 +120,11 @@ def count_significant_features(
     Features with persistence (lifetime) below `threshold_ratio` times the
     maximum persistence are considered numerical noise and excluded.
 
+    The essential class (the component that is born first and never dies) is
+    also excluded, so this returns a reduced count: a field with K
+    well-separated basins gives K-1. The offset is the same for the reference
+    and the reconstruction, so comparisons between the two are unaffected.
+
     Args:
         persistence_result: Output from compute_persistence().
         dim: Homology dimension (0 for connected components).
@@ -185,8 +194,9 @@ def validate(
     One-call topological validation of a reconstructed field against a reference.
 
     Computes:
-        - L² RMSE between the fields
-        - H₀ feature count (significant connected components) for both fields
+        - L2 RMSE between the fields
+        - reduced H0 feature count (significant connected components, essential
+          class excluded) for both fields
         - Wasserstein-2 distance between persistence diagrams
 
     Args:
@@ -197,9 +207,9 @@ def validate(
 
     Returns:
         Dictionary with keys:
-            'rmse': L² RMSE between fields
-            'H0_recon': significant H₀ count for reconstructed field
-            'H0_ref': significant H₀ count for reference field
+            'rmse': L2 RMSE between fields
+            'H0_recon': significant reduced H0 count for reconstructed field
+            'H0_ref': significant reduced H0 count for reference field
             'W2': Wasserstein-2 distance between persistence diagrams
     """
     # RMSE (on un-normalized fields)

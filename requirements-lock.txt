@@ -1,0 +1,14 @@
+# Exact versions used to produce the numbers in the README and the tracked
+# figure demo_validation_output.png, verified on 25 July 2026 with Python 3.13
+# on a clean virtual environment.
+#
+#     pip install -r requirements-lock.txt
+#
+# requirements.txt keeps loose lower bounds for everyday use. Use this file
+# when you want the published figure to be reproduced pixel for pixel:
+# rendering details change between matplotlib releases even though the
+# reported numbers do not.
+gudhi==3.13.0
+numpy==2.5.1
+matplotlib==3.11.1
+POT==0.9.7

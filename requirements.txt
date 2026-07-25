@@ -1,4 +1,8 @@
+# Core dependencies.
 gudhi>=3.9
 numpy>=1.24
-scipy>=1.11
 matplotlib>=3.7
+
+# POT is required by gudhi.wasserstein. GUDHI does not pull it in, so the
+# Wasserstein distance fails with "No module named 'ot'" if it is missing.
+POT>=0.9

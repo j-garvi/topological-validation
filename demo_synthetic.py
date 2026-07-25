@@ -8,11 +8,15 @@ well-separated vortices, generates a "hallucinated" reconstruction with
 spurious structures, and shows how persistent homology detects the structural
 corruption that RMSE alone cannot distinguish.
 
+Counting convention: H0 is reduced, meaning the essential class is excluded.
+The reference field below has 5 vortices and therefore reports H0 = 4, and the
+corrupted field has 12 and reports 11. See the README for why.
+
 Usage:
     python demo_synthetic.py
 
 Output:
-    - Console: RMSE, H₀ counts, W₂ distance for each reconstruction
+    - Console: RMSE, H0 counts, W2 distance for each reconstruction
     - File: demo_validation_output.png (comparison plot)
 
 Author: Jesús Garví-Gualda
@@ -35,8 +39,10 @@ def make_vortex(xx, yy, cx, cy, strength=1.0, sigma=0.08):
 
 def main():
     print("=" * 65)
-    print("  Topological Validation Demo — Synthetic Vortex Field")
+    print("  Topological Validation Demo: Synthetic Vortex Field")
     print("=" * 65)
+    print("  H0 is reduced (essential class excluded), so the 5-vortex")
+    print("  reference field reports H0 = 4.")
 
     N = 256
     x = np.linspace(0, 4, N)
@@ -52,14 +58,14 @@ def main():
         make_vortex(xx, yy, 3.5, 0.5, strength=0.75, sigma=0.08)
     )
 
-    # --- Good reconstruction (faithful, tiny noise) ──────────────────
+    # --- Good reconstruction (faithful, tiny noise)
     np.random.seed(42)
     vorticity_good = vorticity_true + 0.005 * np.random.randn(N, N)
 
     # --- Bad reconstruction (competitive RMSE but hallucinated vortices)
     np.random.seed(123)
     vorticity_bad = vorticity_true.copy()
-    # Add 7 spurious hallucinated vortices (small amplitude ≈ low RMSE)
+    # Add 7 spurious hallucinated vortices (small amplitude, so low RMSE)
     for cx, cy, s in [(0.3, 0.2, 0.35), (0.8, 0.8, 0.30),
                        (1.6, 0.2, 0.32), (2.4, 0.8, 0.28),
                        (2.7, 0.2, 0.25), (3.2, 0.8, 0.30),
@@ -68,8 +74,8 @@ def main():
     vorticity_bad += 0.003 * np.random.randn(N, N)
 
     # --- Validate
-    # Negate the field: sublevel-set filtration finds minima; negating
-    # turns vortex peaks into deep minima -- they become persistent H0
+    # Negate the field: a sublevel-set filtration finds minima, so negating
+    # turns vortex peaks into deep minima and they become persistent H0
     # features born early in the filtration.
     ref = -vorticity_true
     good = -vorticity_good
@@ -89,7 +95,7 @@ def main():
     print(f"   H₀ (recon)= {res_bad['H0_recon']}")
     print(f"   W₂        = {res_bad['W2']:.4f}")
 
-    # --- Key finding ───────────────────────────────────────────────────
+    # --- Key finding
     print("\n-- Summary --")
     rmse_ratio = res_bad['rmse'] / res_good['rmse'] if res_good['rmse'] > 0 else float('inf')
     w2_ratio = res_bad['W2'] / res_good['W2'] if res_good['W2'] > 0 else float('inf')
@@ -102,7 +108,7 @@ def main():
     else:
         print("   >> Pipeline correctly processed both fields.")
 
-    # --- Plot────
+    # --- Plot
     fig, axes = plt.subplots(2, 3, figsize=(16, 9))
 
     # Row 1: Vorticity fields
@@ -124,7 +130,7 @@ def main():
 
     # Row 2: Persistence diagrams
     plot_persistence_diagram(res_good['dgm_ref'], dim=0,
-                             title=f'Reference ($H_0$={res_good["H0_ref"]})',
+                             title=f'Reference (5 vortices, reduced $H_0$={res_good["H0_ref"]})',
                              ax=axes[1, 0], color='#2ca02c')
     plot_persistence_diagram(res_good['dgm_recon'], dim=0,
                              title=f'Good ($H_0$={res_good["H0_recon"]}, $W_2$={res_good["W2"]:.3f})',
@@ -134,7 +140,7 @@ def main():
                              ax=axes[1, 2], color='#d62728')
 
     fig.suptitle('Topological Validation: RMSE vs Persistent Homology',
-                 fontsize=14, fontweight='bold', y=1.01)
+                 fontsize=14, fontweight='bold')
     fig.tight_layout()
 
     out_path = 'demo_validation_output.png'
