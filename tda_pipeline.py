@@ -12,9 +12,10 @@ field with K well-separated basins reports K-1 features. See the README section
 "Counting convention for H0".
 
 Reference:
-    Garví-Gualda, J. (2026). "Beyond RMSE: Structural validation of
-    physics-informed neural network reconstructions via persistent homology."
-    Zenodo preprint, doi:10.5281/zenodo.18958345.
+    Garví-Gualda, J. (2026). "Topological validation of neural PDE solvers:
+    pointwise error metrics cannot certify derived structure."
+    Zenodo preprint, doi:10.5281/zenodo.21707631
+    (all versions: doi:10.5281/zenodo.18958345).
 
 Dependencies:
     - gudhi >= 3.9
@@ -74,10 +75,11 @@ def compute_persistence(field_2d: np.ndarray, max_dim: int = 0) -> dict:
             'H0_lifetimes': array of lifetimes
             (similarly for H1 if max_dim >= 1)
     """
-    cc = gudhi.CubicalComplex(
-        top_dimensional_cells=field_2d.flatten(),
-        dimensions=list(field_2d.shape)
-    )
+    # Pass the array in its original shape. Flattening with NumPy's C order
+    # and passing dimensions separately transposes non-square fields, because
+    # GUDHI reads a flat array in Fortran order. Square fields are unaffected,
+    # which is how the flattened form survived testing on square benchmarks.
+    cc = gudhi.CubicalComplex(top_dimensional_cells=field_2d)
     cc.compute_persistence()
 
     result = {}
