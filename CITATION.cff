@@ -25,18 +25,18 @@ keywords:
   - computational validation
   - Navier-Stokes equations
 license: MIT
-version: 1.0.0
-date-released: "2026-07-25"
+version: 1.0.1
+date-released: "2026-08-02"
 preferred-citation:
   type: article
   title: >-
-    Beyond RMSE: Structural validation of physics-informed neural
-    network reconstructions via persistent homology
+    Topological validation of neural PDE solvers: pointwise error
+    metrics cannot certify derived structure
   authors:
     - family-names: Garví-Gualda
       given-names: Jesús
       orcid: "https://orcid.org/0009-0005-9061-1087"
       affiliation: Universidad de Murcia
   year: 2026
-  doi: 10.5281/zenodo.18958345
-  notes: Zenodo preprint
+  doi: 10.5281/zenodo.21707631
+  notes: Zenodo preprint; all versions at 10.5281/zenodo.18958345

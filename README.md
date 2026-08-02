@@ -47,6 +47,10 @@ byte-identical. `requirements-lock.txt` records the exact versions used to
 produce the tracked figure and the table above (verified on 25 July 2026 with
 Python 3.13).
 
+`test_pipeline.py` holds regression tests with known-count synthetic fields on
+square and non-square grids, including a transpose-invariance check. Run them
+with `pytest` or directly with `python test_pipeline.py`.
+
 ## Counting convention for H0
 
 The pipeline reports **reduced H0**: the essential class is excluded from the
@@ -134,28 +138,30 @@ discretized on regular grids:
    from numerical noise
 4. **Compare** persistence diagrams via the Wasserstein-2 distance
 
-The computation scales as **O(N)** for H0 features, using Union-Find with path
-compression, where N is the number of grid cells. On a single CPU core, a
-4096x4096 grid completes in about 20 seconds.
+H0 features are computed by union-find with path compression once the
+filtration values are ordered, giving O(N alpha(N)) after the sort and
+O(N log N) overall with a comparison sort, where N is the number of grid
+cells. Measured wall-clock time is close to linear over the tested range: on a
+single CPU core, a 4096x4096 grid completes in about 20 seconds.
 
 ## Citation
 
 This code accompanies the preprint deposited on Zenodo:
 
 ```bibtex
-@misc{garvi2026beyond,
-  title={Beyond {RMSE}: Structural validation of physics-informed neural
-         network reconstructions via persistent homology},
+@misc{garvi2026topological,
+  title={Topological validation of neural {PDE} solvers: pointwise error
+         metrics cannot certify derived structure},
   author={Garv{\'\i}-Gualda, Jes{\'u}s},
   year={2026},
   howpublished={Zenodo preprint},
-  doi={10.5281/zenodo.18958345}
+  doi={10.5281/zenodo.21707631}
 }
 ```
 
-An extended version, titled "Topological validation of neural PDE solvers:
-pointwise error metrics cannot certify derived structure", is under review. This
-citation will be updated when it appears.
+The DOI above points to the current version; 10.5281/zenodo.18958345 resolves
+to all versions, including the earlier deposit titled "Beyond RMSE". The
+manuscript is under review, and this citation will be updated when it appears.
 
 `CITATION.cff` carries the same information in machine-readable form.
 
